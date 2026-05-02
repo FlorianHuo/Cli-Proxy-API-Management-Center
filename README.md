@@ -83,6 +83,7 @@ See `api.md` for the full authentication rules, server-side limits, and edge cas
 - **Auth Files**: upload/download/delete JSON credentials, filter/search/pagination, runtime-only indicators, view supported models per credential (when the server supports it), manage OAuth excluded models (supports `*` wildcards), configure OAuth model alias mappings.
 - **OAuth**: start OAuth/device flows for supported providers, poll status, optionally submit callback `redirect_url`; includes iFlow cookie import.
 - **Quota Management**: manage quota limits and usage for Claude, Antigravity, Codex, Gemini CLI, and other providers.
+- **Usage Statistics**: reads the local `cpa-usage-recorder` persistent ledger for restart-safe tokens, requests, model breakdown, and post-collector cost.
 - **Config**: edit `/config.yaml` in-browser with YAML highlighting + search, then save/reload.
 - **Logs**: tail logs with incremental polling, auto-refresh, search, hide management traffic, clear logs; download request error log files.
 - **System**: quick links + fetch `/v1/models` (grouped view). Requires at least one proxy API key to query models.
@@ -124,6 +125,7 @@ The UI language is automatically detected from browser settings and can be manua
 ## Security notes
 
 - The management key is stored in browser `localStorage` using a lightweight obfuscation format (`enc::v1::...`) to avoid plaintext storage; treat it as sensitive.
+- The Usage Statistics page reads `http://127.0.0.1:18317/v0/persistent-usage` by default; keep that local API bound to loopback only.
 - Use a dedicated browser profile/device for management. Be cautious when enabling remote management and evaluate its exposure surface.
 
 ## Troubleshooting
